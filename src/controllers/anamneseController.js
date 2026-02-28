@@ -45,8 +45,13 @@ exports.findById = async (req, res) => {
 exports.update = async (req, res) => {
     try {
         const { id } = req.params;
-        const anamneseAtualizada = new Anamnese(req.body);
-        const [result] = await db.query('UPDATE fichas_anamnese SET ? WHERE id = ?', [anamneseAtualizada, id]);
+        const dadosParaAtualizar = req.body;
+
+        if (Object.keys(dadosParaAtualizar).length === 0) {
+            return res.status(400).json({ error: 'Nenhum dado enviado para atualização.' });
+        }
+
+        const [result] = await db.query('UPDATE fichas_anamnese SET ? WHERE id = ?', [dadosParaAtualizar, id]);
 
         if (result.affectedRows === 0) {
             return res.status(404).json({ error: 'Ficha de anamnese não encontrada.' });
