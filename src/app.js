@@ -1,18 +1,21 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const anamneseRoutes = require('./routes/anamneseRoutes');
-const calendarRoutes = require('./routes/calendarRoutes')
+const calendarRoutes = require('./routes/calendarRoutes');
+const authRoutes = require('./routes/authRoutes');
+const authMiddleware = require('./middleware/auth');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// Rotas
-app.use('/api/anamnese', anamneseRoutes);
-app.use('/api/calendar', calendarRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/anamnese', authMiddleware, anamneseRoutes);
+app.use('/api/calendar', authMiddleware, calendarRoutes);
 
-// Rota de teste
+
 app.get('/', (req, res) => res.send('API SL DERMAFÍSIO Online!'));
 
 const PORT = process.env.PORT || 3000;
