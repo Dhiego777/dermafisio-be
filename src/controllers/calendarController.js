@@ -1,6 +1,14 @@
 const db = require('../database/db');
 const Calendar = require('../models/calendarModel');
 
+const formatDateLocal = (dateString) => {
+  if (!dateString) return null;
+  const date = new Date(dateString);
+  const offset = date.getTimezoneOffset() * 60000;
+  const local = new Date(date.getTime() - offset);
+  return local.toISOString().slice(0, 19);
+};
+
 exports.update = async (req, res) => {
     try {
         const { id } = req.params;
@@ -29,7 +37,7 @@ exports.findAll = async (req, res) => {
             dataCriacao: formatDateLocal(event.dataCriacao),
             dataAtualizacao: formatDateLocal(event.dataAtualizacao),
             }));
-        res.status(200).json(formatted);
+        res.status(200).json(rows);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar agenda.', details: error.message });
     }
