@@ -22,7 +22,14 @@ exports.update = async (req, res) => {
 exports.findAll = async (req, res) => {
     try {
         const [rows] = await db.query('SELECT * FROM agenda ORDER BY dataInicio ASC');
-        res.status(200).json(rows);
+        const formatted = rows.map(event => ({
+            ...event,
+            dataInicio: formatDateLocal(event.dataInicio),
+            dataFim: formatDateLocal(event.dataFim),
+            dataCriacao: formatDateLocal(event.dataCriacao),
+            dataAtualizacao: formatDateLocal(event.dataAtualizacao),
+            }));
+        res.status(200).json(formatted);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar agenda.', details: error.message });
     }
