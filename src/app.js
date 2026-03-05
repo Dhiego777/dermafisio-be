@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const anamneseRoutes = require('./routes/anamneseRoutes');
+const calendarRoutes = require('./routes/calendarRoutes')
 
 const app = express();
 
@@ -9,6 +10,7 @@ app.use(express.json());
 
 // Rotas
 app.use('/api/anamnese', anamneseRoutes);
+app.use('/api/calendar', calendarRoutes);
 
 // Rota de teste
 app.get('/', (req, res) => res.send('API SL DERMAFÍSIO Online!'));
