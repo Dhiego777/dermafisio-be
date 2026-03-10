@@ -1,5 +1,5 @@
 const db = require('../database/db');
-const Cliente = require('../models/clienteModel');
+const Cliente = require('../models/clientModel');
 
 exports.findAll = async (req, res) => {
     try {
