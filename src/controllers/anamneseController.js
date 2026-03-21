@@ -45,7 +45,7 @@ exports.findById = async (req, res) => {
 exports.update = async (req, res) => {
     try {
         const { id } = req.params;
-        const dadosParaAtualizar = req.body;
+        const { id: _id, ...dadosParaAtualizar } = req.body;
 
         if (Object.keys(dadosParaAtualizar).length === 0) {
             return res.status(400).json({ error: 'Nenhum dado enviado para atualização.' });
