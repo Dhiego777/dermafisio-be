@@ -5,6 +5,7 @@ const anamneseRoutes = require('./routes/anamneseRoutes');
 const calendarRoutes = require('./routes/calendarRoutes');
 const clientRoutes = require('./routes/clientRoutes');
 const authRoutes = require('./routes/authRoutes');
+const financeiroRoutes = require('./routes/financeiroRoutes');
 const authMiddleware = require('./middleware/auth');
 
 const app = express();
@@ -16,6 +17,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/anamnese', authMiddleware, anamneseRoutes);
 app.use('/api/calendar', authMiddleware, calendarRoutes);
 app.use('/api/client', authMiddleware, clientRoutes);
+app.use('/api/financeiro', authMiddleware, financeiroRoutes);
 
 
 app.get('/', (req, res) => res.send('API SL DERMAFÍSIO Online!'));
