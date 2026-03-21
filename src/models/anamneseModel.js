@@ -34,5 +34,6 @@ module.exports = class Anamnese {
     this.cirurgia = anamnese.cirurgia;
     this.gravida = anamnese.gravida;
     this.metais = anamnese.metais;
+    this.tratamento = anamnese.tratamento;
   }
 };
