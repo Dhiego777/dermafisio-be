@@ -3,6 +3,11 @@ const db = require('../database/db');
 
 exports.create = async (req, res) => {
     try {
+        const { tipo } = req.body;
+        if (!tipo || !Financeiro.isTipoValido(tipo)) {
+            return res.status(400).json({ error: 'Campo "tipo" é obrigatório e deve ser "pagamento" ou "despesa".' });
+        }
+
         const novoRegistro = new Financeiro(req.body);
         const [result] = await db.query('INSERT INTO financeiro SET ?', [novoRegistro]);
 
@@ -46,6 +51,10 @@ exports.update = async (req, res) => {
     try {
         const { id } = req.params;
         const { id: _id, ...dadosParaAtualizar } = req.body;
+
+        if (dadosParaAtualizar.tipo !== undefined && !Financeiro.isTipoValido(dadosParaAtualizar.tipo)) {
+            return res.status(400).json({ error: 'Campo "tipo" deve ser "pagamento" ou "despesa".' });
+        }
 
         if (dadosParaAtualizar.data) {
             dadosParaAtualizar.data = new Date(dadosParaAtualizar.data);
