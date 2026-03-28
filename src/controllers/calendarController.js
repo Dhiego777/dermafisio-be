@@ -64,6 +64,25 @@ exports.create = async (req, res) => {
     }
 };
 
+const STATUS_VALIDOS = ['agendado', 'confirmado', 'concluido', 'cancelado'];
+
+exports.updateStatus = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { status } = req.body;
+
+        if (!STATUS_VALIDOS.includes(status)) {
+            return res.status(400).json({ error: `Status inválido. Use: ${STATUS_VALIDOS.join(', ')}.` });
+        }
+
+        const [result] = await db.query('UPDATE agenda SET status = ? WHERE id = ?', [status, id]);
+        if (result.affectedRows === 0) return res.status(404).json({ error: 'Agendamento não encontrado.' });
+        res.status(200).json({ message: `Status atualizado para '${status}'.` });
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao atualizar status.', details: error.message });
+    }
+};
+
 exports.delete = async (req, res) => {
     try {
         const { id } = req.params;
