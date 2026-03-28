@@ -51,6 +51,10 @@ exports.update = async (req, res) => {
             dadosParaAtualizar.dataCriacao = new Date(dadosParaAtualizar.dataCriacao);
         }
 
+        if (dadosParaAtualizar.dataNasc) {
+            dadosParaAtualizar.dataNasc = new Date(dadosParaAtualizar.dataNasc);
+        }
+
         if (Object.keys(dadosParaAtualizar).length === 0) {
             return res.status(400).json({ error: 'Nenhum dado enviado para atualização.' });
         }
