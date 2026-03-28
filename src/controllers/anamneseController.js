@@ -12,7 +12,7 @@ exports.create = async (req, res) => {
         });
     } catch (error) {
         console.error('Erro ao salvar anamnese:', error);
-        res.status(500).json({ error: 'Erro interno ao salvar a ficha.' });
+        res.status(500).json({ error: 'Erro interno ao salvar a ficha.', detalhes: error.message });
     }
 };
 
@@ -22,7 +22,7 @@ exports.findAll = async (req, res) => {
         res.status(200).json(rows);
     } catch (error) {
         console.error('Erro ao buscar anamneses:', error);
-        res.status(500).json({ error: 'Erro interno ao buscar as fichas.' });
+        res.status(500).json({ error: 'Erro interno ao buscar as fichas.', detalhes: error.message });
     }
 };
 
@@ -38,7 +38,7 @@ exports.findById = async (req, res) => {
         res.status(200).json(rows[0]);
     } catch (error) {
         console.error('Erro ao buscar anamnese:', error);
-        res.status(500).json({ error: 'Erro interno ao buscar a ficha.' });
+        res.status(500).json({ error: 'Erro interno ao buscar a ficha.', detalhes: error.message });
     }
 };
 
@@ -68,7 +68,7 @@ exports.update = async (req, res) => {
         res.status(200).json({ message: 'Ficha de anamnese atualizada com sucesso.' });
     } catch (error) {
         console.error('Erro ao atualizar anamnese:', error);
-        res.status(500).json({ error: 'Erro interno ao atualizar a ficha.' });
+        res.status(500).json({ error: 'Erro interno ao atualizar a ficha.', detalhes: error.message });
     }
 };
 
@@ -84,6 +84,6 @@ exports.delete = async (req, res) => {
         res.status(200).json({ message: 'Ficha de anamnese deletada com sucesso.' });
     } catch (error) {
         console.error('Erro ao deletar anamnese:', error);
-        res.status(500).json({ error: 'Erro interno ao deletar a ficha.' });
+        res.status(500).json({ error: 'Erro interno ao deletar a ficha.', detalhes: error.message });
     }
 };
