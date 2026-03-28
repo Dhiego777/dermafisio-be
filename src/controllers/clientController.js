@@ -18,10 +18,12 @@ exports.findById = async (req, res) => {
         if (clienteRows.length === 0) return res.status(404).json({ error: 'Cliente não encontrada.' });
 
         const [anamnesesRows] = await db.query('SELECT * FROM fichas_anamnese WHERE clienteId = ? ORDER BY dataCriacao DESC', [id]);
+        const [tratamentosRows] = await db.query('SELECT * FROM tratamentos WHERE clienteId = ? ORDER BY data DESC', [id]);
 
         res.status(200).json({
             ...clienteRows[0],
-            historicoAnamneses: anamnesesRows
+            historicoAnamneses: anamnesesRows,
+            historicoTratamentos: tratamentosRows
         });
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar detalhes da cliente.', details: error.message });
