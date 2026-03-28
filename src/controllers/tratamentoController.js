@@ -59,7 +59,7 @@ exports.findById = async (req, res) => {
 exports.update = async (req, res) => {
     try {
         const { id } = req.params;
-        const { id: _id, clienteId: _clienteId, ...dadosParaAtualizar } = req.body;
+        const { id: _id, clienteId: _clienteId, dataCriacao: _dataCriacao, ...dadosParaAtualizar } = req.body;
 
         if (dadosParaAtualizar.data) {
             dadosParaAtualizar.data = new Date(dadosParaAtualizar.data);
